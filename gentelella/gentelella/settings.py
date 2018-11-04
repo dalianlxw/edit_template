@@ -78,13 +78,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'exampaper',
-        'USER': 'root',
-        'PASSWORD': 'MyNewPass4!',
+        'USER': 'eduser',
+        'PASSWORD': '0D3ced@9BEC10',
+    #    'USER': 'root',
+    #    'PASSWORD': 'MyNewPass4!',
         'HOST': 'localhost',
         'PORT': '3306', 
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
