@@ -19,3 +19,5 @@ def gentella_html(request):
     template = loader.get_template('app/' + load_template)
     return HttpResponse(template.render(context, request))
 
+def form_upload(request):
+    return HttpResponse("hello world")
