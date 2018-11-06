@@ -30,7 +30,6 @@ def form_upload(request):
         for chunk in file_obj.chunks(chunk_size=1024):
             f.write(chunk)
         f.close()
-        print('111111')
         return HttpResponse('ok')
     else:
         return HttpResponse('fale')
