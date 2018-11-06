@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
+from docx import Document
 
 
 def index(request):
@@ -25,9 +26,11 @@ def form_upload(request):
         filename = file_obj.name
         filesize = file_obj.size
         import os
+        document = Document(u'file_obj')
+        con = [ paragraph.text.encode('gb2312') for paragraph in document.paragraphs];
         f = open(os.path.join('/tmp/',filename),'wb+')
         #content = name + ' \n' + str(size)
-        for chunk in file_obj.chunks(chunk_size=1024):
+        for chunk in con:
             f.write(chunk)
         f.close()
         return HttpResponse('ok')
