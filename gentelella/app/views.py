@@ -20,4 +20,18 @@ def gentella_html(request):
     return HttpResponse(template.render(context, request))
 
 def form_upload(request):
-    return HttpResponse("hello world")
+    if request.method == "POST":
+        file_obj = request.FILES.get('file')
+        filename = file_obj.name
+        filesize = file_obj.size
+        import os
+        f = open(os.path.join('/tmp/',filename),'wb+')
+        #content = name + ' \n' + str(size)
+        for chunk in file_obj.chunks(chunk_size=1024):
+            f.write(chunk)
+        f.close()
+        print('111111')
+        return HttpResponse('ok')
+    else:
+        return HttpResponse('fale')
+        

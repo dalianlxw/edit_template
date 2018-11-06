@@ -54,8 +54,10 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-          <form action="form_upload.py" method="POST" class="dropzone col-md-12"></form>
-
+          <form action="form_upload" method="POST" class="dropzone col-md-12">
+	{% csrf_token %}
+	</form>
+	<p>{{ rlt }}</p>
          </div>
       </div>
    </div>
