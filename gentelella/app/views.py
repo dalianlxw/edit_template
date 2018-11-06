@@ -26,14 +26,12 @@ def form_upload(request):
         filename = file_obj.name
         filesize = file_obj.size
         import os
-        document = Document(u'file_obj')
-        con = [ paragraph.text.encode('gb2312') for paragraph in document.paragraphs];
         f = open(os.path.join('/tmp/',filename),'wb+')
         #content = name + ' \n' + str(size)
-        for chunk in con:
+        for chunk in file_obj.chunks(chunk_size=1024):
             f.write(chunk)
         f.close()
+        print('111111')
         return HttpResponse('ok')
     else:
         return HttpResponse('fale')
-        
