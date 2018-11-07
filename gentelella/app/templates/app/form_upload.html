@@ -297,7 +297,13 @@
               </div>
             </div>
 
-            <div id="editor-one" class="editor-wrapper"></div>
+            <div id="editor-one" class="editor-wrapper">
+            我的测试: {{aaa}} <br>
+            <br />
+            {%for h in aaa%}
+            {{h}}
+            {%endfor%}
+            </div>
 
             <textarea name="descr" id="descr" style="display:none;"></textarea>
 
