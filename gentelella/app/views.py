@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
-from docx import Document
+#from app.scripts.docxtohtml import processDocs
+from app.scripts.docxread import read_docx
 
 
 def index(request):
@@ -32,7 +33,12 @@ def form_upload(request):
             f.write(chunk)
         f.close()
         #return HttpResponse('ok')
-        return render(request,'form_test.html',{'aaa': 'ch'})
+        #result = processDocs('/tmp/' + filename)
+        flnm = '/tmp/' + filename
+        print(flnm)
+        result = read_docx(flnm)
+        #return render(request,'form_test.html',{'aaa': result})
+        return render(request,'form_upload.html',{'aaa': result})
         #return render(request,'form_upload.html',{'aaa': 'file_type'})
         #return render(request,'form_upload.html',{'aaa':file_obj.chunks()})
     else:
