@@ -1,3 +1,0 @@
-[06/Nov/2018 15:09:08] "POST /form_upload HTTP/1.1" 200 2
-[06/Nov/2018 15:11:10] "GET /form_upload.html HTTP/1.1" 200 31308
-[06/Nov/2018 15:11:18] "POST /form_upload HTTP/1.1" 200 2
