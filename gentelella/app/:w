@@ -58,16 +58,16 @@
 	{% csrf_token %}
 	</form>
             <div class="x_content">
-              <form action="form_submit" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+              <form action="form_submit"  method="POST" data-parsley-validate class="form-horizontal form-label-left">
 	{% csrf_token %}
              <!--  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"> -->
                 <div class="form-group">
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">科目选择</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select name="subject_ver" class="form-control">
+                  <select class="form-control">
                       <option value="">选择学科</option>
                       <optgroup label="沪教版">
-                        <option value="hj_ver">数学</option>
+                        <option value="hj_maths">数学</option>
                         <option value="hj_english">英语</option>
                         <option value="hj_chinese">语文</option>
                       </optgroup>
@@ -81,7 +81,7 @@
 
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">年级</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                    <select name="grade_ver" class="form-control">
+                    <select class="form-control">
                       <option>一年级上</option>
                       <option>一年级下</option>
                       <option>二年级上</option>
@@ -95,7 +95,7 @@
                <div class="form-group">
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">试卷类型</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select name="paper_type" class="form-control">
+                  <select class="form-control">
                       <option value="">请选择</option>
                         <option value="danyuanjuan">单元卷</option>
                         <option value="qizhong">期中</option>
@@ -106,7 +106,7 @@
 
                 <label class="control-label col-md-2 col-sm-1 col-xs-1">章节</label> 
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select name="chapter" class="form-control">
+                  <select class="form-control">
                       <option value="">请选择</option>
                         <option value="dasurenshi">大数的认识</option>
                         <option value="mianji">面积</option>
