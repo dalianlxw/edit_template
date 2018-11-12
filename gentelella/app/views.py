@@ -34,12 +34,22 @@ def form_upload(request):
         f.close()
         #return HttpResponse('ok')
         #result = processDocs('/tmp/' + filename)
-        flnm = '/tmp/' + filename
-        print(flnm)
-        result = read_docx(flnm)
+        #flnm = '/tmp/' + filename
+        #print(flnm)
+        #result = read_docx(flnm)
         #return render(request,'form_test.html',{'aaa': result})
-        return render(request,'form_upload.html',{'aaa': result})
-        #return render(request,'form_upload.html',{'aaa': 'file_type'})
-        #return render(request,'form_upload.html',{'aaa':file_obj.chunks()})
+        #return render(request,'form_upload.html',{'aaa': result})
+        return HttpResponse('OK')
     else:
         return HttpResponse('fale')
+def form_submit(request):
+    if request.method =="POST":
+        subject_ver = request.POST.get('subject_ver')
+        grade_ver = request.POST.get('grade_ver')
+        paper_ver = request.POST.get('paper_type')
+        chapter = request.POST.get('chapter')
+        context = {}
+        context = {'subject_ver':subject_ver,'grade_ver':grade_ver,'paper_ver':paper_ver,'chapter':chapter}
+
+        #return HttpResponse(subject_ver)
+        return render(request,'form_submit.html',{'aaa':context})
