@@ -95,7 +95,7 @@
                   </li>
                 </ul>
        <div id="step-1">  
-      <div class="col-md-12 col-sm-12 col-xs-12"> 
+      <div class="col-md-6 col-sm-12 col-xs-12"> 
          <div class="x_panel"> 
           <div class="x_content"> 
            <div id="alerts"></div>
@@ -169,19 +169,28 @@
             </div>
 
             <div id="editor-one" class="editor-wrapper">
-            我的测试: {{aaa}} <br>
-            <br />
             {%for h in aaa%}
             {{h}}
+            <br />
             {%endfor%}
             </div>
 
             <textarea name="descr" id="descr" style="display:none;"></textarea>
-
-            <br />
-
           </div>
         </div>
+      <div class="col-md-2 col-sm-2 col-xs-2"> 
+          <div class="x_content"> 
+         <div class="x_panel"> 
+           <div id="alerts"></div>
+            <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one"> 
+              <div class="btn-group">
+              </div>
+            <div id="editor-one" class="editor-wrapper">
+            <br/>
+            </div>
+            </div>
+            </div>
+            </div>
       </div>
 
                 </div>
