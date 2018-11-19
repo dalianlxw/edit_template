@@ -53,7 +53,7 @@ def form_upload(request):
         #result = read_docx(flnm)
         #return render(request,'form_test.html',{'aaa': result})
         #return render(request,'form_upload.html',{'aaa': result})
-        return render(request,'form_submit.html',{'aaa':text})
+        return render(request,'form_submit2.html',{'aaa':text})
         #return render(request,'form_submit.html',{'aaa':context})
     else:
         return HttpResponse('fale')
