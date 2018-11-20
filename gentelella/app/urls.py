@@ -10,5 +10,6 @@ urlpatterns = [
     # The home page
     url(r'^$', views.index, name='index'),
     url(r'^form_upload$',views.form_upload),
-    url(r'^form_submit$',views.form_submit),
+    url(r'^form_upload2$',views.form_upload2),
+    url(r'^singe_submit$',views.singe_submit),
 ]
