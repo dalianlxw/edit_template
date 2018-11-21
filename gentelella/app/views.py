@@ -68,11 +68,13 @@ def singe_submit(request):
     if request.method =="POST":
         stda = request.POST.get('stda')
         guanjianzhi = request.POST.get('tags_1')
+        editor_one = request.POST.get('editor-one')
+        print(editor_one)
         print(guanjianzhi)
         print(stda)
         print("--------------")
         context = {}
         context = {'stda':stda,'guanjianzhi':guanjianzhi}
 
-        #return HttpResponse('ok')
-        return render(request,'result.html',{'result':'ok'})
+        return HttpResponse('ok')
+        #return render(request,'result.html',{'result':'ok'})

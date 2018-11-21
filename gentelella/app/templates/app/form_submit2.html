@@ -115,7 +115,7 @@
            <div class="col-md-6 col-sm-2 col-xs-2"> 
            <div class="x_panel">           
             <div class="x_content"> 
-         <form action="" method="POST" name="submitpaper" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left"> 
+         <form action="" method="POST" id="submitpaper" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left"> 
              {% csrf_token %}
               <div id="alerts"></div> 
               <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-one"> 
@@ -138,7 +138,7 @@
                 <div class="form-group">
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">科目选择</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select name="subject_ver" class="form-control">
+                  <select id="subject_ver" class="form-control">
                       <option value="">选择学科</option>
                       <optgroup label="沪教版">
                         <option value="hj_ver">数学</option>
@@ -155,7 +155,7 @@
 
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">年级</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                    <select name="grade_ver" class="form-control">
+                    <select id="grade_ver" class="form-control">
                       <option>一年级上</option>
                       <option>一年级下</option>
                       <option>二年级上</option>
@@ -193,7 +193,7 @@
                 <div class="form-group">
                   <div class="col-md-8 col-sm-5 col-xs-5 col-md-offset-5">
                     <button type="button" id='bt001'  class="btn btn-primary">Cancel</button> 
-                    <button class="btn btn-primary" type="reset">Reset</button>
+                    <button class="btn btn-primary" id="sub_reset" type="reset">Reset</button>
                     <button type="button" id="Subform" class="btn btn-success">Submit</button>
                   </div>
                 </div>
