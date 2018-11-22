@@ -67,31 +67,21 @@
                   <div class="col-md-3 col-sm-2 col-xs-2">
                   <select name="subject_ver" class="form-control">
                       <option value="">选择学科</option>
-                      {% for edition in edition_resp %}
-                        <optgroup>{{ edition }}</optgroup>>
-                          {% for subject in subject_resp %}
-                          <option>{{ subject }} </option>
+                      {% for edition in edition_list %}
+                        <optgroup label={{ edition.name }}>
+                          {% for subject in subject_list %}
+                          <option>{{ subject.subjectname }} </option>
                           {% endfor %}
+                        </optgroup>
                         {% endfor %}
-                        <!--
-                      <optgroup label="沪教版">
-                        <option value="hj_ver">数学</option>
-                        <option value="hj_english">英语</option>
-                        <option value="hj_chinese">语文</option>
-                      </optgroup>
-                      <optgroup label="人教版">
-                        <option value="rj_maths">数学</option>
-                        <option value="rj_english">英语</option>
-                        <option value="rj_chinese">语文</option>
-                      </optgroup>  -->
                   </select>
                   </div>
 
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">年级</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
                     <select name="grade_ver" class="form-control">
-                      {% for grade in grade_resp %}
-                        <option>{{ grade }}</option>
+                      {% for grade in grade_list %}
+                        <option>{{ grade.gradename }}</option>
                         {% endfor %}
                     </select>
                   </div>
@@ -108,19 +98,16 @@
                   </select>
                   </div>  
 
-
                <div class="form-group">
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">试卷类型</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
                   <select name="paper_type" class="form-control">
-                  {% for paper in paper_resp %}
-                        <option>{{ paper }}</option>
+                  {% for paper in paper_list %}
+                        <option>{{ paper.name }}</option>
                         {% endfor %}
                   </select>
                   </div>
-
- 
-
+                  </div>
 
                 <div class="ln_solid"></div>
                 <div class="form-group">
