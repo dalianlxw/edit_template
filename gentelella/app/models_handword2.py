@@ -29,6 +29,16 @@ class Chapter(models.Model):
         db_table = 'chapter'
 
 
+class DjangoMigrations(models.Model):
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
+
+
 class Edition(models.Model):
     id = models.IntegerField(db_column='Id', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
@@ -45,6 +55,14 @@ class Grade(models.Model):
     class Meta:
         managed = False
         db_table = 'grade'
+
+class Papertype(models.Model):
+    papertypeid = models.IntegerField(db_column='papertypeid', primary_key=True)  # Field name made lowercase.
+    papertypename = models.CharField(db_column='papertypename', max_length=255, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'papertype'
 
 
 class KnowledgeBasic(models.Model):
@@ -73,15 +91,6 @@ class KnowledgeLevel(models.Model):
     class Meta:
         managed = False
         db_table = 'knowledge_level'
-
-
-class Papertype(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'papertype'
 
 
 class Pharse(models.Model):
