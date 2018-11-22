@@ -26,15 +26,27 @@ def gentella_html(request):
     return HttpResponse(template.render(context, request))
 
 def form_info(request):
-    response = []
+    grade_resp,paper_resp,edition_resp,subject_resp = []
+    #paper_resp = []
     edition_list = Edition.objects.all()
+    subject_list = Subject.objects.all()
     grade_list = Grade.objects.all()
+    paper_list = Papertype.objects.all()
+    #for edition in edition_list:
+    #    print(edition.name)
+    for subject in subject_list:
+        print(subject.subjectName)
+        subject_resp.append(subject.subjectName)
     for edition in edition_list:
         print(edition.name)
+        edition_resp.append(edition.name)
+    for paper in paper_list:
+        print(paper.name)
+        paper_resp.append(paper.name)
     for grade in grade_list:
-        print(grade.gradename)
-        response.append(grade.gradename)
-    return render(request,'form_upload.html',{'grade_list':response})
+       # print(grade.gradename)
+        grade_resp.append(grade.gradename)
+    return render(request,'form_upload.html',{'grade_list':grade_resp,'paper_resp':paper_resp,'edition_resp':edition_resp,'paper_resp':paper_resp})
     #return render(request,'form_upload.html',{'subject_ver':edition_list})
 
 def form_upload(request):
