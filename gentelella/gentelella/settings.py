@@ -78,7 +78,8 @@ WSGI_APPLICATION = 'gentelella.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'exampaper',
+        'NAME': 'diliedu',
+        #'NAME': 'exampaper',
         'USER': 'eduser',
         'PASSWORD': '0D3ced@9BEC10',
     #    'USER': 'root',

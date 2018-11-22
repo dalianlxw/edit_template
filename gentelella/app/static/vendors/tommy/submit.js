@@ -5,7 +5,7 @@ $.ajax({
     type:'POST',
     url: '/singe_submit',
     data: {
-    "editor-one":$('#editor-one').val(),
+    "editor-two":$('#editor-two').val(),
     "stda":$('#stda').val(),
     "tags_1":$('#tags_1').val(),
     "subject_ver":$('#subject_ver').val()

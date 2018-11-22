@@ -5,13 +5,16 @@ from django.http import HttpResponse
 #from app.scripts.docxtohtml import processDocs
 from app.scripts.docxread import read_docx
 import docx2txt
+from  app.models import Edition,Grade
 
 def index(request):
     context = {}
     template = loader.get_template('app/index.html')
     return HttpResponse(template.render(context, request))
 
-
+def get_edition(request):
+    list = Edition.objects.all()
+    return list
 def gentella_html(request):
     context = {}
     # The template to be loaded as per gentelella.
@@ -21,11 +24,18 @@ def gentella_html(request):
     load_template = request.path.split('/')[-1]
     template = loader.get_template('app/' + load_template)
     return HttpResponse(template.render(context, request))
-def form_upload2(request):
-    if request.method == "POST":
-        subject_ver = request.POST.get('subject_ver')
-        print(subject_ver)
-    return HttpResponse('fale')
+
+def form_info(request):
+    response = []
+    edition_list = Edition.objects.all()
+    grade_list = Grade.objects.all()
+    for edition in edition_list:
+        print(edition.name)
+    for grade in grade_list:
+        print(grade.gradename)
+        response.append(grade.gradename)
+    return render(request,'form_upload.html',{'grade_list':response})
+    #return render(request,'form_upload.html',{'subject_ver':edition_list})
 
 def form_upload(request):
     if request.method == "POST":
@@ -45,9 +55,7 @@ def form_upload(request):
         text = []
         d = docx.Document(os.path.join('/tmp/',filename))
         for p in d.paragraphs:
-           # if  len(p.text):
             if  p.text:   #不显示空行
-                print(p.text)
                 text.append(p.text)
         #return HttpResponse('ok')
         #result = processDocs('/tmp/' + filename)
@@ -68,13 +76,12 @@ def singe_submit(request):
     if request.method =="POST":
         stda = request.POST.get('stda')
         guanjianzhi = request.POST.get('tags_1')
-        editor_one = request.POST.get('editor-one')
-        print(editor_one)
+        editor_two = request.POST.get('editor-two')
+        print(editor_two)
         print(guanjianzhi)
         print(stda)
         print("--------------")
         context = {}
         context = {'stda':stda,'guanjianzhi':guanjianzhi}
-
-        return HttpResponse('ok')
+        return HttpResponse('success')
         #return render(request,'result.html',{'result':'ok'})
