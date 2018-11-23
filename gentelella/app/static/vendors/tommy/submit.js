@@ -1,3 +1,9 @@
+
+var cities = [
+["大连","丹东","沈阳"],
+["浦东","崇明","静安"]
+];
+
 $("#Subform").on("click",function(){
 $.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});
 $.ajax({
@@ -25,5 +31,19 @@ $("#submitpaper")[0].reset();
     //$("input[type=reset]").trigger("click");
 })
 
-
-
+$(document).ready(function(){
+$("#sheng").change(function(){
+    $('#city').get(0).length = 0;
+    var sheng = $(this).val();
+    //alert(sheng);
+    $.each(cities,function(i,n){
+      //  alert(n)
+        if(sheng == i){
+            $(n).each(function(j,m){
+        //    alert(m);
+            $('#city').append("<option name='city'>"+ m +"</option>")
+            });
+        }
+     });
+   })
+});

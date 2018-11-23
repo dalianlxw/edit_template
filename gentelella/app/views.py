@@ -30,7 +30,10 @@ def form_info(request):
     subject_list = Subject.objects.all()
     grade_list = Grade.objects.all()
     paper_list = Papertype.objects.all()
-    return render(request,'form_upload.html',{'grade_list':grade_list,'paper_list':paper_list,'edition_list':edition_list,'paper_list':paper_list,'subject_list':subject_list})
+    sheng_list = ['辽宁','上海']
+    shi_list = [['大连','丹东'],['浦东','崇明']]
+
+    return render(request,'form_upload.html',{'grade_list':grade_list,'paper_list':paper_list,'edition_list':edition_list,'paper_list':paper_list,'subject_list':subject_list,'sheng_list':sheng_list,'shi_list':shi_list})
 
 def form_upload(request):
     if request.method == "POST":

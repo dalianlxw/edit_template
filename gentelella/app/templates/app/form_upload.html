@@ -61,8 +61,8 @@
                   <div class="input-group col-md-3 col-sm-2 col-xs-2">
                       <input type="file" name="file" class="form-control">
                   </div>
+                <br />
                 <div class="form-group">
-
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">科目选择</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
                   <select name="subject_ver" class="form-control">
@@ -88,6 +88,7 @@
                 </div>
 
 
+               <div class="form-group">
                 <label class="control-label col-md-2 col-sm-1 col-xs-1">章节</label> 
                   <div class="col-md-3 col-sm-2 col-xs-2">
                   <select name="chapter" class="form-control">
@@ -98,7 +99,6 @@
                   </select>
                   </div>  
 
-               <div class="form-group">
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">试卷类型</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
                   <select name="paper_type" class="form-control">
@@ -107,6 +107,25 @@
                         {% endfor %}
                   </select>
                   </div>
+                  </div>
+                
+               <div class="form-group">
+                <label class="control-label col-md-2 col-sm-1 col-xs-1">省份</label> 
+                  <div class="col-md-3 col-sm-2 col-xs-2">
+                  <select id="sheng" class="form-control">
+                      <option value="">请选择</option>
+                       {% for sheng in sheng_list %}
+                            <option value={{ forloop.counter0 }}> {{ sheng }} </option>
+                            {% endfor %}
+                  </select>
+                  </div>  
+                
+                <label class="control-label col-md-2 col-sm-1 col-xs-1">市</label> 
+                  <div class="col-md-3 col-sm-2 col-xs-2">
+                  <select id="city" class="form-control">
+                      <option  name="city">请选择</option>
+                  </select>
+                  </div>  
                   </div>
 
                 <div class="ln_solid"></div>
@@ -139,5 +158,6 @@
   {{ block.super }}
   <!-- Dropzone.js -->
   <script src="/static/vendors/dropzone/dist/min/dropzone.min.js"></script>
+    <script src="/static/vendors/tommy/submit.js"></script>
   <!-- <script src="/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script> -->
 {% endblock javascripts %}
