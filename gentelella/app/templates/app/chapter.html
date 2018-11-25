@@ -13,7 +13,7 @@
     <div class="">
       <div class="page-title">
         <div class="title_left">
-          <h3>试卷编辑 </h3>
+          <h3>版本章节管理 </h3>
         </div>
 
         <div class="title_right">
@@ -35,7 +35,7 @@
 
           <div class="x_panel">
             <div class="x_title">
-              <h2>上传文件自动识别</h2>
+              <h2>添加版本章节</h2>
               <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -54,14 +54,8 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <form action="form_upload" method="POST" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left">
+              <form action="chapter" method="POST" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left">
 	{% csrf_token %}
-             <!--  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"> -->
-                  <label class="control-label col-md-2 col-sm-1 col-xs-1">文件上传</label>
-                  <div class="input-group col-md-3 col-sm-2 col-xs-2">
-                      <input type="file" name="file" class="form-control">
-                  </div>
-                <br />
 
                 <div class="form-group">
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">教材版本</label>
@@ -79,7 +73,7 @@
                   <select id="subject" class="form-control">
                       <option value="">选择学科</option>
                       {% for subject in subject_list %}
-                        <option label={{ subject.subjectname }}>
+                        <option >{{ subject.subjectname }}> </option>
                       {% endfor %}
                   </select>
                   </div>
@@ -96,6 +90,34 @@
                     </select>
                   </div>
 
+                  <label class="control-label col-md-2 col-sm-1 col-xs-1">学段</label>
+                  <div class="col-md-3 col-sm-2 col-xs-2">
+                    <select name="grade" class="form-control">
+                      {% for pharse in pharse_list %}
+                        <option>{{ pharse.pharseName }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="item form-group">
+                  <label class="control-label col-md-2 col-sm-2 col-xs-12" >单元</label>
+                  <div class="col-md-3 col-sm-2 col-xs-2">
+                    <input type="text" id="chapter" class="form-control col-md-7 col-xs-12">
+                  </div>
+
+
+                  <label class="control-label col-md-2 col-sm-2 col-xs-12" >章节</label>
+                  <div class="col-md-3 col-sm-2 col-xs-2">
+                    <input type="text" id="chapter" class="form-control col-md-7 col-xs-12">
+                  </div>
+                </div>
+
+                  <label class="control-label col-md-2 col-sm-2 col-xs-12" >小节</label>
+                  <div class="col-md-3 col-sm-2 col-xs-2">
+                    <input type="text" id="chapter" class="form-control col-md-7 col-xs-12">
+                  </div>
+                </div>
 
                 <label class="control-label col-md-2 col-sm-1 col-xs-1">章节</label> 
                   <div class="col-md-3 col-sm-2 col-xs-2">
