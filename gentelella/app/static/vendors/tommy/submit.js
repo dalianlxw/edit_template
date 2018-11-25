@@ -46,4 +46,10 @@ $("#sheng").change(function(){
         }
      });
    })
+$("#subject").change(function(){
+    var edition = $("#edition").val();
+    var subject = $(this).val();
+    alert(edition);
+
+    })
 });
