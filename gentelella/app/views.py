@@ -2,10 +2,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
+from django.core import serializers
+import json
 #from app.scripts.docxtohtml import processDocs
 from app.scripts.docxread import read_docx
 import docx2txt
-from  app.models import Edition,Grade,Subject,Papertype
+from  app.models import Edition,Grade,Subject,Papertype,Pharse,Chapter
 
 def index(request):
     context = {}
@@ -83,3 +85,29 @@ def singe_submit(request):
         context = {'stda':stda,'guanjianzhi':guanjianzhi}
         return HttpResponse('success')
         #return render(request,'result.html',{'result':'ok'})
+def chapter(request):
+    edition_list = Edition.objects.all()
+    subject_list = Subject.objects.all()
+    grade_list = Grade.objects.all()
+    paper_list = Papertype.objects.all()
+    pharse_list = Pharse.objects.all()
+    #return render(request,'chapter.html')
+    return render(request,'chapter.html',{'grade_list':grade_list,'paper_list':paper_list,'edition_list':edition_list,'pharse_list':pharse_list,'paper_list':paper_list,'subject_list':subject_list})
+
+def get_chapter(request):
+    edition = request.POST.get('edition')
+    subject = request.POST.get('subject')
+    grade = request.POST.get('grade')
+    paper_type = request.POST.get('paper_type')
+    print(edition)
+    chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('id','chapterorder','chapter')
+
+ #   data = [ { 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 },{ 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 } ]
+    #data = serializers.serialize("json",chapt_list)
+   #for c in chapt_list:
+   #     print(type(c))
+   # print(type(data))
+    data = json.dumps(list(chapt_list))
+    print(type(chapt_list))
+    print(type(data))
+    return HttpResponse(data,content_type='application/json')

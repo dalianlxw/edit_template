@@ -46,10 +46,33 @@ $("#sheng").change(function(){
         }
      });
    })
-$("#subject").change(function(){
+$("#subject1").change(function(){
     var edition = $("#edition").val();
     var subject = $(this).val();
     alert(edition);
 
     })
-});
+$("#paper_type").change(function(){
+    var edition =$("#edition").val();
+    var subject =$("#subject").val();
+    var grade = $("#grade").val();
+    var paper_type = $("#paper_type").val();
+    alert(edition + grade + subject + '-----');
+    $.post("get_chapter",
+    {
+        edition:edition,
+        subject:subject,
+        grade:grade,
+        paper_type:paper_type
+    },
+    function(data,status){
+        $('#chapter').empty();
+//        console.log(toString.call(data));
+        $.each(data,function(i,item){
+            //  console.log(item.id,item.chapterorder,item.chapter);
+              $('#chapter').append("<option id=" + item.id + ">第"+ item.chapterorder +"章----"  + item.chapter + "</option>")
+        })
+     })
+    })
+ })
+

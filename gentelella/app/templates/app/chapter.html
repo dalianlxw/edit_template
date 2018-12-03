@@ -54,7 +54,7 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <form action="chapter" method="POST" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left">
+        <form action="chapter" method="POST" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left">
 	{% csrf_token %}
 
                 <div class="form-group">
@@ -73,7 +73,7 @@
                   <select id="subject" class="form-control">
                       <option value="">选择学科</option>
                       {% for subject in subject_list %}
-                        <option >{{ subject.subjectname }}> </option>
+                        <option >{{ subject.subjectname }} </option>
                       {% endfor %}
                   </select>
                   </div>
@@ -94,7 +94,7 @@
                   <div class="col-md-3 col-sm-2 col-xs-2">
                     <select name="grade" class="form-control">
                       {% for pharse in pharse_list %}
-                        <option>{{ pharse.pharseName }}</option>
+                        <option>{{ pharse.pharsename }}</option>
                         {% endfor %}
                     </select>
                   </div>
@@ -113,52 +113,13 @@
                   </div>
                 </div>
 
+                <div class="item form-group">
                   <label class="control-label col-md-2 col-sm-2 col-xs-12" >小节</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
                     <input type="text" id="chapter" class="form-control col-md-7 col-xs-12">
                   </div>
+                  
                 </div>
-
-                <label class="control-label col-md-2 col-sm-1 col-xs-1">章节</label> 
-                  <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select name="chapter" class="form-control">
-                      <option value="">请选择</option>
-                        <option value="dasurenshi">大数的认识</option>
-                        <option value="mianji">面积</option>
-                        <option value="xingcheng">行程</option>
-                  </select>
-                  </div>  
-                  </div>  
-
-               <div class="form-group">
-                  <label class="control-label col-md-2 col-sm-1 col-xs-1">试卷类型</label>
-                  <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select name="paper_type" class="form-control">
-                  {% for paper in paper_list %}
-                        <option>{{ paper.name }}</option>
-                        {% endfor %}
-                  </select>
-                  </div>
-                  </div>
-                
-               <div class="form-group">
-                <label class="control-label col-md-2 col-sm-1 col-xs-1">省份</label> 
-                  <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select id="sheng" class="form-control">
-                      <option value="">请选择</option>
-                       {% for sheng in sheng_list %}
-                            <option value={{ forloop.counter0 }}> {{ sheng }} </option>
-                            {% endfor %}
-                  </select>
-                  </div>  
-                
-                <label class="control-label col-md-2 col-sm-1 col-xs-1">市</label> 
-                  <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select id="city" class="form-control">
-                      <option  name="city">请选择</option>
-                  </select>
-                  </div>  
-                  </div>
 
                 <div class="ln_solid"></div>
                 <div class="form-group">

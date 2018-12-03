@@ -12,4 +12,6 @@ urlpatterns = [
     url(r'^form_upload$',views.form_upload),
     url(r'^form_info$',views.form_info),
     url(r'^singe_submit$',views.singe_submit),
+    url(r'^chapter$',views.chapter),
+    url(r'^get_chapter$',views.get_chapter),
 ]
