@@ -52,18 +52,18 @@ $("#subject1").change(function(){
     alert(edition);
 
     })
-$("#paper_type").change(function(){
+$("#grade").change(function(){
     var edition =$("#edition").val();
     var subject =$("#subject").val();
-    var grade = $("#grade").val();
-    var paper_type = $("#paper_type").val();
+    var grade = $(this).val();
+   // var paper_type = $("#paper_type").val();
     alert(edition + grade + subject + '-----');
     $.post("get_chapter",
     {
         edition:edition,
         subject:subject,
         grade:grade,
-        paper_type:paper_type
+//        paper_type:paper_type
     },
     function(data,status){
         $('#chapter').empty();

@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse
 from django.core import serializers
-import json
+import json,uuid,os,hashlib,docx
 #from app.scripts.docxtohtml import processDocs
 from app.scripts.docxread import read_docx
 import docx2txt
@@ -17,6 +17,7 @@ def index(request):
 def get_edition(request):
     list = Edition.objects.all()
     return list
+
 def gentella_html(request):
     context = {}
     # The template to be loaded as per gentelella.
@@ -44,16 +45,24 @@ def form_upload(request):
         paper_ver = request.POST.get('paper_type')
         chapter = request.POST.get('chapter')
         file_obj = request.FILES.get('file')
-        filename = file_obj.name
-        filesize = file_obj.size
-        import os,docx
-        f = open(os.path.join('/tmp/',filename),'wb+')
-        #content = name + ' \n' + str(size)
+        file_ext = file_obj.name.split('.')[-1]
+
+        filename = '{}.{}'.format(uuid.uuid4().hex,file_ext)
+
+        hash_v = hash(filename)
+        dir1 = str(hash_v & 0xf)
+        dir2 = str((hash_v >>4 & 0xf))
+        filepath = "/var/www/upload/" + dir1 +"/"+ dir2
+        print(filepath +"/"+ filename)
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+        f = open(os.path.join(filepath+"/"+filename),'wb+')
         for chunk in file_obj.chunks(chunk_size=1024):
             f.write(chunk)
-        f.close()
+        f.close
+
         text = []
-        d = docx.Document(os.path.join('/tmp/',filename))
+        d = docx.Document(os.path.join(filepath + "/" + filename))
         for p in d.paragraphs:
             if  p.text:   #不显示空行
                 text.append(p.text)
@@ -85,6 +94,7 @@ def singe_submit(request):
         context = {'stda':stda,'guanjianzhi':guanjianzhi}
         return HttpResponse('success')
         #return render(request,'result.html',{'result':'ok'})
+
 def chapter(request):
     edition_list = Edition.objects.all()
     subject_list = Subject.objects.all()
@@ -102,11 +112,6 @@ def get_chapter(request):
     print(edition)
     chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('id','chapterorder','chapter')
 
- #   data = [ { 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 },{ 'a' : 1, 'b' : 2, 'c' : 3, 'd' : 4, 'e' : 5 } ]
-    #data = serializers.serialize("json",chapt_list)
-   #for c in chapt_list:
-   #     print(type(c))
-   # print(type(data))
     data = json.dumps(list(chapt_list))
     print(type(chapt_list))
     print(type(data))
