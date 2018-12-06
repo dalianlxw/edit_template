@@ -11,7 +11,7 @@ from django.db import models
 
 
 class Chapter(models.Model):
-    chapterid = models.IntegerField()
+    id = models.AutoField(primary_key=True)
     subjectid = models.ForeignKey('Subject', models.DO_NOTHING, db_column='subjectId')  # Field name made lowercase.
     pharseid = models.ForeignKey('Pharse', models.DO_NOTHING, db_column='pharseId', blank=True, null=True)  # Field name made lowercase.
     gradeid = models.ForeignKey('Grade', models.DO_NOTHING, db_column='gradeId')  # Field name made lowercase.
@@ -27,7 +27,7 @@ class Chapter(models.Model):
     class Meta:
         managed = False
         db_table = 'chapter'
-        unique_together = (('chapterid', 'editionid', 'subjectid', 'gradeid'),)
+        unique_together = (('id', 'editionid', 'subjectid', 'gradeid'),)
 
 
 class DjangoMigrations(models.Model):
@@ -84,15 +84,6 @@ class KnowledgeLevel(models.Model):
     class Meta:
         managed = False
         db_table = 'knowledge_level'
-
-
-class PaperList(models.Model):
-    md5hex = models.CharField(max_length=32, blank=True, null=True)
-    storage_dir = models.CharField(max_length=66, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'paper_list'
 
 
 class Papertype(models.Model):

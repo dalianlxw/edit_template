@@ -7,7 +7,7 @@ import json,uuid,os,hashlib,docx
 #from app.scripts.docxtohtml import processDocs
 from app.scripts.docxread import read_docx
 import docx2txt
-from  app.models import Edition,Grade,Subject,Papertype,Pharse,Chapter
+from  app.models import Edition,Grade,Subject,Papertype,Pharse,Chapter,PaperList
 
 def index(request):
     context = {}
@@ -38,6 +38,8 @@ def form_info(request):
 
     return render(request,'form_upload.html',{'grade_list':grade_list,'paper_list':paper_list,'edition_list':edition_list,'paper_list':paper_list,'subject_list':subject_list,'sheng_list':sheng_list,'shi_list':shi_list})
 
+
+
 def form_upload(request):
     if request.method == "POST":
         subject_ver = request.POST.get('subject_ver')
@@ -47,8 +49,8 @@ def form_upload(request):
         file_obj = request.FILES.get('file')
         file_ext = file_obj.name.split('.')[-1]
 
+    # 生成uuid文件名和目录
         filename = '{}.{}'.format(uuid.uuid4().hex,file_ext)
-
         hash_v = hash(filename)
         dir1 = str(hash_v & 0xf)
         dir2 = str((hash_v >>4 & 0xf))
@@ -56,12 +58,38 @@ def form_upload(request):
         print(filepath +"/"+ filename)
         if not os.path.exists(filepath):
             os.makedirs(filepath)
+
         f = open(os.path.join(filepath+"/"+filename),'wb+')
+        #文件内容进行md5处理
+        m = hashlib.md5()
+
         for chunk in file_obj.chunks(chunk_size=1024):
             f.write(chunk)
+            m.update(chunk)
+        hashex = m.hexdigest()
         f.close
+        print(hashex)
+        status = 0
+        
+        try:
+            filehash = PaperList.objects.get(md5hex=hashex)
+        except:
+            paper_list = PaperList(md5hex=hashex,storage_dir=filepath +"/"+filename)
+            print(filepath +"/"+filename)
+            paper_list.save()
+            print("试卷已保存")
+            status = 1;
+        else:
+            print("试卷已经存在")
 
+
+
+
+    # 读取上传的文件    
         text = []
+        if status == 0:
+            text.append('本试卷在系统中已经存在!')
+            text.append('以下为历史试卷中的试题，如与您的试题不一致，请在上传试卷内随便加入几个空格保存后，重新输入！')
         d = docx.Document(os.path.join(filepath + "/" + filename))
         for p in d.paragraphs:
             if  p.text:   #不显示空行
@@ -110,7 +138,7 @@ def get_chapter(request):
     grade = request.POST.get('grade')
     paper_type = request.POST.get('paper_type')
     print(edition)
-    chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('id','chapterorder','chapter')
+    chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('chapterid','chapterorder','chapter')
 
     data = json.dumps(list(chapt_list))
     print(type(chapt_list))
