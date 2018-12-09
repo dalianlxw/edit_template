@@ -84,7 +84,7 @@ DATABASES = {
         'PASSWORD': '0D3ced@9BEC10',
     #    'USER': 'root',
     #    'PASSWORD': 'MyNewPass4!',
-        'HOST': 'localhost',
+        'HOST': 'django-mysql',
         'PORT': '3306', 
     }
 }
