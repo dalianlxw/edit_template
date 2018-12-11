@@ -66,7 +66,7 @@
                 <div class="form-group">
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">教材版本</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select id="edition" class="form-control">
+                  <select id="edition" name="edition" class="form-control">
                       <option value="">选择版本</option>
                       {% for edition in edition_list %}
                           <option value="{{ edition.id }}">{{ edition.name }} </option>
@@ -76,7 +76,7 @@
 
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">科目选择</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select id="subject" class="form-control">
+                  <select id="subject" name="subject" class="form-control">
                       <option value="">选择学科</option>
                       {% for subject in subject_list %}
                         <option value="{{ subject.subjectid }}"> {{ subject.subjectname }} </option>
@@ -89,7 +89,8 @@
                <div class="form-group">
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">年级</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                    <select id="grade" class="form-control">
+                    <select id="grade" name="grade" class="form-control">
+                      <option value="">选择年级</option>
                       {% for grade in grade_list %}
                         <option value="{{ grade.gradeid }}">{{ grade.gradename }}</option>
                         {% endfor %}
@@ -99,7 +100,7 @@
                <div class="form-group">
                 <label class="control-label col-md-2 col-sm-1 col-xs-1">章节</label> 
                   <div class="col-md-3 col-sm-3 col-xs-3">
-                  <select id="chapter" class="form-control">
+                  <select id="chapter" name="chapter" class="form-control">
                       <option name="chapter">请选择</option>
                   </select>      
                   </div> 
@@ -107,7 +108,8 @@
 
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">试卷类型</label>
                   <div class="col-md-3 col-sm-2 col-xs-2">
-                  <select id="paper_type" class="form-control">
+                  <select id="paper_type" name="paper_type" class="form-control">
+                    <option value="">请选择</option>
                   {% for paper in paper_list %}
                         <option value="{{ paper.id }}">{{ paper.name }}</option>
                         {% endfor %}

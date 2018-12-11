@@ -42,12 +42,16 @@ def form_info(request):
 
 def form_upload(request):
     if request.method == "POST":
-        subject_ver = request.POST.get('subject_ver')
-        grade_ver = request.POST.get('grade_ver')
+        
+        edition_ver = request.POST.get('edition')
+        subject_ver = request.POST.get('subject')
+        grade_ver = request.POST.get('grade')
         paper_ver = request.POST.get('paper_type')
-        chapter = request.POST.get('chapter')
+        chapter_ver = request.POST.get('chapter')
         file_obj = request.FILES.get('file')
         file_ext = file_obj.name.split('.')[-1]
+
+        print("edition_ver:%s,subject_ver:%s,grade_ver:%s,paper_ver:%s,chapter:%s" % (edition_ver,subject_ver,grade_ver,paper_ver,chapter_ver))
 
     # 生成uuid文件名和目录
         filename = '{}.{}'.format(uuid.uuid4().hex,file_ext)
@@ -71,10 +75,16 @@ def form_upload(request):
         print(hashex)
         status = 0
         
+        editionid = Edition.objects.get(id=edition_ver)
+        subjectid = Subject.objects.get(subjectid=subject_ver)
+        gradeid = Grade.objects.get(gradeid=grade_ver)
+        chapterid = Chapter.objects.get(chapterid=chapter_ver)
+        #print(chapterid)
+
         try:
             filehash = PaperList.objects.get(md5hex=hashex)
         except:
-            paper_list = PaperList(md5hex=hashex,storage_dir=filepath +"/"+filename)
+            paper_list = PaperList(md5hex=hashex,storage_dir=filepath +"/"+filename,editionid=editionid,subjectid=subjectid,gradeid=gradeid,chapter=chapterid) 
             print(filepath +"/"+filename)
             paper_list.save()
             print("试卷已保存")

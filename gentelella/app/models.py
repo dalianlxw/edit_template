@@ -11,7 +11,7 @@ from django.db import models
 
 
 class Chapter(models.Model):
-    chapterid = models.IntegerField()
+    chapterid = models.IntegerField(primary_key=True)
     subjectid = models.ForeignKey('Subject', models.DO_NOTHING, db_column='subjectId')  # Field name made lowercase.
     pharseid = models.ForeignKey('Pharse', models.DO_NOTHING, db_column='pharseId', blank=True, null=True)  # Field name made lowercase.
     gradeid = models.ForeignKey('Grade', models.DO_NOTHING, db_column='gradeId')  # Field name made lowercase.
@@ -27,7 +27,6 @@ class Chapter(models.Model):
     class Meta:
         managed = False
         db_table = 'chapter'
-        unique_together = (('chapterid', 'editionid', 'subjectid', 'gradeid'),)
 
 
 class DjangoMigrations(models.Model):
@@ -89,6 +88,11 @@ class KnowledgeLevel(models.Model):
 class PaperList(models.Model):
     md5hex = models.CharField(max_length=32, blank=True, null=True)
     storage_dir = models.CharField(max_length=66, blank=True, null=True)
+    editionid = models.ForeignKey(Edition, models.DO_NOTHING, db_column='editionid', blank=True, null=True)
+    subjectid = models.ForeignKey('Subject', models.DO_NOTHING, db_column='subjectid', blank=True, null=True)
+    gradeid = models.ForeignKey(Grade, models.DO_NOTHING, db_column='gradeid', blank=True, null=True)
+    chapter = models.ForeignKey(Chapter, models.DO_NOTHING, db_column='chapter', blank=True, null=True)
+    paper_typeid = models.ForeignKey('self', models.DO_NOTHING, db_column='paper_typeid', blank=True, null=True)
 
     class Meta:
         managed = False

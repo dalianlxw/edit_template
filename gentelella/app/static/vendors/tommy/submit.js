@@ -57,7 +57,7 @@ $("#grade").change(function(){
     var subject =$("#subject").val();
     var grade = $(this).val();
    // var paper_type = $("#paper_type").val();
-    alert(edition + grade + subject + '-----');
+   // alert(edition + grade + subject + '-----');
     $.post("get_chapter",
     {
         edition:edition,
@@ -69,8 +69,8 @@ $("#grade").change(function(){
         $('#chapter').empty();
 //        console.log(toString.call(data));
         $.each(data,function(i,item){
-            //  console.log(item.id,item.chapterorder,item.chapter);
-              $('#chapter').append("<option id=" + item.id + ">第"+ item.chapterorder +"章----"  + item.chapter + "</option>")
+              console.log(item.id,item.chapterorder,item.chapter);
+              $('#chapter').append("<option value=" + item.chapterid + ">第"+ item.chapterorder +"章----"  + item.chapter + "</option>")
         })
      })
     })
