@@ -91,6 +91,9 @@ def form_upload(request):
             status = 1;
         else:
             print("试卷已经存在")
+            return render(request,'form_upload.html',{'script':"alert",'message':'试卷已经收录'})
+            #return render({'script':"alert",'message':'试卷已经收录'})
+            #return HttpResponse({'script':"alert",'message':'试卷已经收录'})
 
 
 
