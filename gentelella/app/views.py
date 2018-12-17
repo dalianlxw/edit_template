@@ -9,6 +9,9 @@ from app.scripts.docxread import read_docx
 import docx2txt
 from  app.models import Edition,Grade,Subject,Papertype,Pharse,Chapter,PaperList
 
+import logging
+
+
 def index(request):
     context = {}
     template = loader.get_template('app/index.html')
@@ -48,7 +51,12 @@ def form_upload(request):
         grade_ver = request.POST.get('grade')
         paper_ver = request.POST.get('paper_type')
         chapter_ver = request.POST.get('chapter')
-        file_obj = request.FILES.get('file')
+        file_obj = request.FILES.get('upfile')
+        logging.debug("-------")
+        logging.debug(file_obj)
+        logging.debug(edition_ver)
+        logging.debug(grade_ver)
+        logging.debug("-------")
         file_ext = file_obj.name.split('.')[-1]
 
         print("edition_ver:%s,subject_ver:%s,grade_ver:%s,paper_ver:%s,chapter:%s" % (edition_ver,subject_ver,grade_ver,paper_ver,chapter_ver))
@@ -157,3 +165,5 @@ def get_chapter(request):
     print(type(chapt_list))
     print(type(data))
     return HttpResponse(data,content_type='application/json')
+def form_test(request):
+    return HttpResponse('success')

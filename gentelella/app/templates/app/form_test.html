@@ -6,7 +6,27 @@
 </head>
 
 <body>
-我的中国心
-<script>{{ script }}('{{ message }}')</script>
+ <form id="subform"  enctype＝ “multipart/form-data"> 
+  {% csrf_token %}
+ <label >文件上传</label>
+     <input type="file" id="upfile" name="upfile">
+   	<br />
+   	<br />
+   	<br />
+   	<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="subpaper">Submit</button>
+
+</form>
+
 </body>
+
+  <!-- Dropzone.js -->
+  <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
+  <script src="/static/vendors/tommy/jstest.js"></script>
+  <!--  <script src="/static/vendors/dropzone/dist/min/dropzone.min.js"></script> 
+    <script>{{ script }}('{{ message }}')</script>
+   <script>window.onload=(function(){alert("欢迎来到**！");})();</script>
+  <script src="/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script> -->
+
 </html>

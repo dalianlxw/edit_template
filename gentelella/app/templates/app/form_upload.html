@@ -54,12 +54,13 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <form id="demo-form2" action="form_upload" method="POST" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left">
-	{% csrf_token %}
-             <!--  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left"> -->
+             <!-- <form id="demo-form2" action="form_upload" method="POST" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left"> -->
+
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype＝ “multipart/form-data"> 
+                  {% csrf_token %}
                   <label class="control-label col-md-2 col-sm-1 col-xs-1">文件上传</label>
                   <div class="input-group col-md-3 col-sm-2 col-xs-2">
-                      <input type="file" name="file" class="form-control">
+                      <input type="file" id="upfile" name="upfile" class="form-control">
                   </div>
                 <br />
 
@@ -143,7 +144,7 @@
                   <div class="col-md-8 col-sm-5 col-xs-5 col-md-offset-5">
                     <button type="button" class="btn btn-primary">Cancel</button>
                     <button class="btn btn-primary" type="reset">Reset</button>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="button" id="subpaper" class="btn btn-success">Submit</button>
                   </div>
                 </div>
 
@@ -169,7 +170,8 @@
   <!-- Dropzone.js -->
   <script src="/static/vendors/dropzone/dist/min/dropzone.min.js"></script>
     <script src="/static/vendors/tommy/submit.js"></script>
-    <script>{{ script }}('{{ message }}')</script>
- <!--    <script>window.onload=(function(){alert("欢迎来到**！");})();</script>
+    <script src="/static/vendors/tommy/subpaper.js"></script>
+ <!--     <script>{{ script }}('{{ message }}')</script>
+   <script>window.onload=(function(){alert("欢迎来到**！");})();</script>
   <script src="/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script> -->
 {% endblock javascripts %}
