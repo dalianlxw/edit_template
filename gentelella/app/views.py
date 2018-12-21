@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt 
 from django.shortcuts import render
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.core import serializers
 import json,uuid,os,hashlib,docx
 #from app.scripts.docxtohtml import processDocs
@@ -51,7 +51,7 @@ def form_upload(request):
         grade_ver = request.POST.get('grade')
         paper_ver = request.POST.get('paper_type')
         chapter_ver = request.POST.get('chapter')
-        file_obj = request.FILES.get('upfile')
+        file_obj = request.FILES.get('file')
         logging.debug("-------")
         logging.debug(file_obj)
         logging.debug(edition_ver)
@@ -59,7 +59,7 @@ def form_upload(request):
         logging.debug("-------")
         file_ext = file_obj.name.split('.')[-1]
 
-        print("edition_ver:%s,subject_ver:%s,grade_ver:%s,paper_ver:%s,chapter:%s" % (edition_ver,subject_ver,grade_ver,paper_ver,chapter_ver))
+        logging.debug("edition_ver:%s,subject_ver:%s,grade_ver:%s,paper_ver:%s,chapter:%s" % (edition_ver,subject_ver,grade_ver,paper_ver,chapter_ver))
 
     # 生成uuid文件名和目录
         filename = '{}.{}'.format(uuid.uuid4().hex,file_ext)
@@ -81,54 +81,61 @@ def form_upload(request):
         hashex = m.hexdigest()
         f.close
         print(hashex)
-        status = 0
-        
+        logging.debug(hashex)
         editionid = Edition.objects.get(id=edition_ver)
         subjectid = Subject.objects.get(subjectid=subject_ver)
         gradeid = Grade.objects.get(gradeid=grade_ver)
         chapterid = Chapter.objects.get(chapterid=chapter_ver)
-        #print(chapterid)
 
         try:
             filehash = PaperList.objects.get(md5hex=hashex)
+            #Author.objects.filter(id=2).exists()    可以这样判断记录是否存在
+            logging.debug("文件已经存在")
+            #PaperList.objects.filter(md5hex=hashex).delete()
+            return HttpResponse("{\"status\":1}")
         except:
             paper_list = PaperList(md5hex=hashex,storage_dir=filepath +"/"+filename,editionid=editionid,subjectid=subjectid,gradeid=gradeid,chapter=chapterid) 
             print(filepath +"/"+filename)
             paper_list.save()
-            print("试卷已保存")
-            status = 1;
-        else:
-            print("试卷已经存在")
-            return render(request,'form_upload.html',{'script':"alert",'message':'试卷已经收录'})
-            #return render({'script':"alert",'message':'试卷已经收录'})
-            #return HttpResponse({'script':"alert",'message':'试卷已经收录'})
+            logging.debug("文件已保存")
+           
+            return JsonResponse({"status":0,"md5hex":hashex},safe=False);
 
-
-
-
-    # 读取上传的文件    
-        text = []
-        if status == 0:
-            text.append('本试卷在系统中已经存在!')
-            text.append('以下为历史试卷中的试题，如与您的试题不一致，请在上传试卷内随便加入几个空格保存后，重新输入！')
-        d = docx.Document(os.path.join(filepath + "/" + filename))
-        for p in d.paragraphs:
-            if  p.text:   #不显示空行
-                text.append(p.text)
-        #return HttpResponse('ok')
-        #result = processDocs('/tmp/' + filename)
-        #flnm = '/tmp/' + filename
-        context = {}
-        context = {'subject_ver':subject_ver,'grade_ver':grade_ver,'paper_ver':paper_ver,'chapter':chapter}
-
-        #print(flnm)
-        #result = read_docx(flnm)
-        #return render(request,'form_test.html',{'aaa': result})
-        #return render(request,'form_upload.html',{'aaa': result})
-        return render(request,'form_submit2.html',{'aaa':text})
-        #return render(request,'form_submit.html',{'aaa':context})
     else:
+        logging.debug("that way")
         return HttpResponse('fale')
+
+def read_file(request,md5hex):
+    logging.debug("-------------")
+    try:
+        filehash = PaperList.objects.get(md5hex=md5hex)
+        mid5hex = filehash.md5hex
+        storage_dir = filehash.storage_dir
+        editionid = filehash.editionid.id
+        subjectid = filehash.subjectid.subjectid
+        gradeid = filehash.gradeid.gradeid
+        chapter = filehash.chapterid.chapterid
+
+        logging.debug(editionid)
+    except:
+        logging.debug("查询数据库失败")
+           
+#            return JsonResponse({"status":0,"md5hex":hashex},safe=False);
+#    return  render(request,'form_submit2.html',{"aaa":md5hex})
+
+    text = []    
+    d = docx.Document(storage_dir)
+    for p in d.paragraphs:
+        if  p.text:   #不显示空行
+            text.append(p.text)
+    #context = {}
+       #context = {'subject_ver':subject_ver,'grade_ver':grade_ver,'paper_ver':paper_ver,'chapter':chapter}
+    #context = {"status":"0"}
+    logging.debug("this way")
+    #return HttpResponse(context)
+        #return HttpResponse("{\"status\":0,\"aaa\":\"context\"}")
+    return render(request,'form_submit2.html',{"aaa":text})
+
 
 def singe_submit(request):
     if request.method =="POST":
@@ -166,4 +173,8 @@ def get_chapter(request):
     print(type(data))
     return HttpResponse(data,content_type='application/json')
 def form_test(request):
-    return HttpResponse('success')
+    upfile=request.FILES.get('file')
+    upfile1=request.FILES.get('file1')
+    logging.debug(upfile)
+    logging.debug(upfile1)
+    return HttpResponse("{\"status\":200,\"mesg\":\"success\"}",content_type='application/json')
