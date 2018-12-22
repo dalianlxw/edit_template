@@ -7,7 +7,7 @@ import json,uuid,os,hashlib,docx
 #from app.scripts.docxtohtml import processDocs
 from app.scripts.docxread import read_docx
 import docx2txt
-from  app.models import Edition,Grade,Subject,Papertype,Pharse,Chapter,PaperList
+from  app.models import Edition,Grade,Subject,Papertype,Pharse,Chapter,Paper
 
 import logging
 
@@ -52,11 +52,10 @@ def form_upload(request):
         paper_ver = request.POST.get('paper_type')
         chapter_ver = request.POST.get('chapter')
         file_obj = request.FILES.get('file')
-        logging.debug("-------")
+
+#        logging.debug("-------")
         logging.debug(file_obj)
-        logging.debug(edition_ver)
-        logging.debug(grade_ver)
-        logging.debug("-------")
+
         file_ext = file_obj.name.split('.')[-1]
 
         logging.debug("edition_ver:%s,subject_ver:%s,grade_ver:%s,paper_ver:%s,chapter:%s" % (edition_ver,subject_ver,grade_ver,paper_ver,chapter_ver))
@@ -83,40 +82,43 @@ def form_upload(request):
         print(hashex)
         logging.debug(hashex)
         editionid = Edition.objects.get(id=edition_ver)
-        subjectid = Subject.objects.get(subjectid=subject_ver)
-        gradeid = Grade.objects.get(gradeid=grade_ver)
-        chapterid = Chapter.objects.get(chapterid=chapter_ver)
+        subjectid = Subject.objects.get(id=subject_ver)
+        gradeid = Grade.objects.get(id=grade_ver)
+        chapterid = Chapter.objects.get(id=chapter_ver)
 
         try:
-            filehash = PaperList.objects.get(md5hex=hashex)
+            filehash = Paper.objects.get(md5hex=hashex)
             #Author.objects.filter(id=2).exists()    可以这样判断记录是否存在
             logging.debug("文件已经存在")
             #PaperList.objects.filter(md5hex=hashex).delete()
             return HttpResponse("{\"status\":1}")
         except:
-            paper_list = PaperList(md5hex=hashex,storage_dir=filepath +"/"+filename,editionid=editionid,subjectid=subjectid,gradeid=gradeid,chapter=chapterid) 
+            logging.debug("md5hex:%s,editionid:%s,subjectid:%s,gradeid:%s,chapterid:%s" % (hashex,editionid.id,subjectid.id,gradeid.id,chapterid.id))
+            paper_list = Paper(md5hex=hashex,storage=filepath +"/"+filename,editionid=editionid,subjectid=subjectid,gradeid=gradeid,chapterid=chapterid) 
             print(filepath +"/"+filename)
             paper_list.save()
+            c = Paper.objects.latest('id')
+            logging.debug('下面为c.pk值')
+            logging.debug(c.id)
             logging.debug("文件已保存")
            
-            return JsonResponse({"status":0,"md5hex":hashex},safe=False);
+            return JsonResponse({"status":0,"id":c.id},safe=False);
 
     else:
         logging.debug("that way")
         return HttpResponse('fale')
 
-def read_file(request,md5hex):
-    logging.debug("-------------")
+def read_file(request,id):
+    logging.debug("------"+id+"-------")
     try:
-        filehash = PaperList.objects.get(md5hex=md5hex)
+        filehash = Paper.objects.get(id=id)
         mid5hex = filehash.md5hex
-        storage_dir = filehash.storage_dir
-        editionid = filehash.editionid.id
-        subjectid = filehash.subjectid.subjectid
-        gradeid = filehash.gradeid.gradeid
-        chapter = filehash.chapterid.chapterid
-
-        logging.debug(editionid)
+        storage = filehash.storage
+        editionid = filehash.id
+        subjectid = filehash.id
+        gradeid = filehash.id
+        chapter = filehash.id
+        #logging.debug(editionid)
     except:
         logging.debug("查询数据库失败")
            
@@ -124,7 +126,7 @@ def read_file(request,md5hex):
 #    return  render(request,'form_submit2.html',{"aaa":md5hex})
 
     text = []    
-    d = docx.Document(storage_dir)
+    d = docx.Document(storage)
     for p in d.paragraphs:
         if  p.text:   #不显示空行
             text.append(p.text)
@@ -166,8 +168,8 @@ def get_chapter(request):
     grade = request.POST.get('grade')
     paper_type = request.POST.get('paper_type')
     print(edition)
-    chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('chapterid','chapterorder','chapter')
-
+    #chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('id','chapterorder','chapter')
+    chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('id','chapterorder','chapter');
     data = json.dumps(list(chapt_list))
     print(type(chapt_list))
     print(type(data))

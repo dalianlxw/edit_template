@@ -23,8 +23,8 @@ $.ajax({
         $("#demo-form2")[0].reset();
     }
     else if (data.status == 0){
-        alert(data.md5hex)
-        window.location.href="/read_file/"+data.md5hex;
+//        alert("试卷已经保存，确定后进行编辑")
+        window.location.href="/read_file/"+data.id;
     }else{
         alert(data.status);
     }},

@@ -86,13 +86,14 @@ class KnowledgeLevel(models.Model):
 
 
 class Paper(models.Model):
+    id = models.AutoField(primary_key=True)
     md5hex = models.CharField(max_length=32, blank=True, null=True)
     storage = models.CharField(max_length=66, blank=True, null=True)
     editionid = models.ForeignKey(Edition, models.DO_NOTHING, db_column='editionid', blank=True, null=True)
     subjectid = models.ForeignKey('Subject', models.DO_NOTHING, db_column='subjectid', blank=True, null=True)
     gradeid = models.ForeignKey(Grade, models.DO_NOTHING, db_column='gradeid', blank=True, null=True)
-    chapterid = models.ForeignKey(Chapter, models.DO_NOTHING, db_column='chapterid', blank=True, null=True)
-    papertypeid = models.ForeignKey('Papertype', models.DO_NOTHING, db_column='papertypeid', blank=True, null=True)
+    chapterid = models.IntegerField(blank=True, null=True)
+    papertypeid = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False

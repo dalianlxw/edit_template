@@ -70,7 +70,7 @@ $("#grade").change(function(){
 //        console.log(toString.call(data));
         $.each(data,function(i,item){
            //   console.log(item.id,item.chapterorder,item.chapter);
-              $('#chapter').append("<option value=" + item.chapterid + ">第"+ item.chapterorder +"章----"  + item.chapter + "</option>")
+              $('#chapter').append("<option value=" + item.id + ">第"+ item.chapterorder +"章----"  + item.chapter + "</option>")
         })
      })
     })
