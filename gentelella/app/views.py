@@ -86,30 +86,27 @@ def form_upload(request):
         gradeid = Grade.objects.get(id=grade_ver)
         chapterid = Chapter.objects.get(id=chapter_ver)
 
-        try:
-            filehash = Paper.objects.get(md5hex=hashex)
+        #f = Paper.objects.filter(md5hex=hashex).exists()
+        if Paper.objects.filter(md5hex=hashex).exists():
             #Author.objects.filter(id=2).exists()    可以这样判断记录是否存在
             logging.debug("文件已经存在")
             #PaperList.objects.filter(md5hex=hashex).delete()
             return HttpResponse("{\"status\":1}")
-        except:
+        else:
             logging.debug("md5hex:%s,editionid:%s,subjectid:%s,gradeid:%s,chapterid:%s" % (hashex,editionid.id,subjectid.id,gradeid.id,chapterid.id))
             paper_list = Paper(md5hex=hashex,storage=filepath +"/"+filename,editionid=editionid,subjectid=subjectid,gradeid=gradeid,chapterid=chapterid) 
             print(filepath +"/"+filename)
             paper_list.save()
             c = Paper.objects.latest('id')
-            logging.debug('下面为c.pk值')
             logging.debug(c.id)
-            logging.debug("文件已保存")
-           
             return JsonResponse({"status":0,"id":c.id},safe=False);
 
     else:
-        logging.debug("that way")
-        return HttpResponse('fale')
+        logging.debug("非post请求")
+        return HttpResponse('非post请求')
 
 def read_file(request,id):
-    logging.debug("------"+id+"-------")
+#    logging.debug("------"+id+"-------")
     try:
         filehash = Paper.objects.get(id=id)
         mid5hex = filehash.md5hex
@@ -171,8 +168,8 @@ def get_chapter(request):
     #chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('id','chapterorder','chapter')
     chapt_list = Chapter.objects.filter(subjectid=subject,gradeid=grade,editionid=edition).values('id','chapterorder','chapter');
     data = json.dumps(list(chapt_list))
-    print(type(chapt_list))
-    print(type(data))
+ #   print(type(chapt_list))
+ #   print(type(data))
     return HttpResponse(data,content_type='application/json')
 def form_test(request):
     upfile=request.FILES.get('file')
