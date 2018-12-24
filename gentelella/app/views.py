@@ -133,7 +133,7 @@ def read_file(request,id):
     logging.debug("this way")
     #return HttpResponse(context)
         #return HttpResponse("{\"status\":0,\"aaa\":\"context\"}")
-    return render(request,'form_submit2.html',{"aaa":text})
+    return render(request,'form_submit.html',{"aaa":text})
 
 
 def singe_submit(request):
