@@ -24,7 +24,7 @@ $.ajax({
     }
     else if (data.status == 0){
 //        alert("试卷已经保存，确定后进行编辑")
-        window.location.href="/read_file/"+data.id;
+        window.location.href="/read_file/"+data.id+"/";
     }else{
         alert(data.status);
     }},

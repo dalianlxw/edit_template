@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^get_chapter$',views.get_chapter),
     url(r'^form_test$',views.form_test),
     url(r'^read_file/(.+)/$',views.read_file),
+   
     #url(r'^read_file/$',views.read_file),
 ]

@@ -13,16 +13,24 @@ $.ajax({
     data: {
     "editor-two":$('#editor-two').val(),
     "stda":$('#stda').val(),
-    "tags_1":$('#tags_1').val(),
-    "subject_ver":$('#subject_ver').val()
+    "tags_1_tagsinput":$('#tags_1_tagsinput').val(),
     },
     dataType:'json',
     success:function(data){
-    //console.log(result);
-        alert(data);
-    },
-    error:function(){
-    alert("error");
+    if (data.status == 1){
+        alert("试题已经录入，确定后继续");
+        $("#demo-form2")[0].reset();
+    }
+    else if (data.status == 0){
+        alert("传数据时出现异常")
+       // window.location.href="/read_file/"+data.id;
+    }else{
+        alert(data.status);
+    }},
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert(XMLHttpRequest.status);
+        alert(XMLHttpRequest.readyState);
+        alert(textStatus);
     },
 });
 //$("#sub_reset")[0].reset();

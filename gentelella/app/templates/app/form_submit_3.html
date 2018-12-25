@@ -1,0 +1,113 @@
+{% extends "app/base_site.html" %}
+
+{% block title %} Form Upload {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <!-- Dropzone.js -->
+  <link href="/static/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %} 
+
+  <div class="right_col" role="main"> 
+   <div class=""> 
+    <div class="page-title"> 
+     <div class="title_left"> 
+      <h3>试卷编辑 </h3> 
+     </div> 
+     <div class="title_right"> 
+      <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"> 
+       <div class="input-group"> 
+        <input type="text" class="form-control" placeholder="Search for..." /> 
+        <span class="input-group-btn"> <button class="btn btn-default" type="button">Go!</button> </span> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="row"> 
+     <div class="col-md-12 col-sm-12 col-xs-12"> 
+      <div class="x_panel"> 
+       <div class="x_title"> 
+        <h2>试题入库 <small>单题</small></h2> 
+        <ul class="nav navbar-right panel_toolbox"> 
+         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> </li> 
+         <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a> 
+          <ul class="dropdown-menu" role="menu"> 
+           <li><a href="#">Settings 1</a> </li> 
+           <li><a href="#">Settings 2</a> </li> 
+          </ul> </li> 
+         <li><a class="close-link"><i class="fa fa-close"></i></a> </li> 
+        </ul> 
+        <div class="clearfix"></div> 
+       </div> 
+       <div class="x_content"> 
+        <!-- Smart Wizard
+        <p>This is a basic form wizard example that inherits the colors from the selected scheme.</p>   --> 
+        <div id="wizard" class="form_wizard wizard_horizontal"> 
+         <div id="step-1"> 
+          <div class="col-md-6 col-sm-12 col-xs-12"> 
+           <div class="x_panel"> 
+            <div class="x_content"> 
+
+             <div id="editor-one" class="editor-wrapper">
+               {% for h in aaa %} {{ h }} 
+              <br /> {% endfor %} 
+             </div> 
+             <textarea name="descr" id="descr" style="display:none;"></textarea> 
+            </div> 
+           </div> 
+           </div>
+           <div class="col-md-6 col-sm-2 col-xs-2"> 
+           <div class="x_panel">           
+            <div class="x_content"> 
+         <form action="" method="POST" id="submitpaper" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left"> 
+             {% csrf_token %}
+               <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-two"> 
+               <textarea id="editor-two" class="editor-wrapper col-md-12"></textarea> 
+              </div>
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">试题答案</label>
+                 <div class="input-group col-md-6 col-sm-4 col-xs-4" >
+                  <input type="text" id="stda" class="form-control">
+                 </div>
+                <div class="form-group">
+                <label class="control-label col-md-2 col-sm-2 col-xs-12">关键字</label>
+                  <div class="col-md-8 col-sm-4 col-xs-4">
+                  <input id="tags_1"  type="text" class="tags form-control" value="速度提升节约天数,工期提前由每天工程" />
+                  <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+                  </div>
+
+                <div class="form-group">
+                  <div class="col-md-8 col-sm-5 col-xs-5 col-md-offset-5">
+                    <button type="button" id='bt001'  class="btn btn-primary">Cancel</button> 
+                    <button class="btn btn-primary" id="sub_reset" type="reset">Reset</button>
+                    <button type="button" id="Subform" class="btn btn-success">Submit</button>
+                  </div>
+                </div>
+              </form>
+
+             </div> 
+           </div> 
+          </div> 
+        </div>
+
+
+
+         </div> 
+         <!-- End SmartWizard Content --> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super }}
+  <!-- Dropzone.js -->
+  <script src="/static/vendors/dropzone/dist/min/dropzone.min.js"></script>
+  <script src="/static/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+  <script src="/static/vendors/tommy/submit.js"></script>
+{% endblock javascripts %}

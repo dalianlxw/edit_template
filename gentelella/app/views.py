@@ -115,7 +115,7 @@ def read_file(request,id):
         subjectid = filehash.id
         gradeid = filehash.id
         chapter = filehash.id
-        #logging.debug(editionid)
+        logging.debug(storage)
     except:
         logging.debug("查询数据库失败")
            
@@ -127,10 +127,11 @@ def read_file(request,id):
     for p in d.paragraphs:
         if  p.text:   #不显示空行
             text.append(p.text)
+            logging.debug(p.text)
     #context = {}
        #context = {'subject_ver':subject_ver,'grade_ver':grade_ver,'paper_ver':paper_ver,'chapter':chapter}
     #context = {"status":"0"}
-    logging.debug("this way")
+#    logging.debug("this way")
     #return HttpResponse(context)
         #return HttpResponse("{\"status\":0,\"aaa\":\"context\"}")
     return render(request,'form_submit.html',{"aaa":text})
@@ -138,16 +139,16 @@ def read_file(request,id):
 
 def singe_submit(request):
     if request.method =="POST":
-        stda = request.POST.get('stda')
-        guanjianzhi = request.POST.get('tags_1')
-        editor_two = request.POST.get('editor-two')
-        print(editor_two)
-        print(guanjianzhi)
-        print(stda)
-        print("--------------")
+        paperedit = request.POST.get('stda')
+        paperquestion = request.POST.get('tags_1_tagsinput')
+        keyquestion = request.POST.get('editor-two')
         context = {}
-        context = {'stda':stda,'guanjianzhi':guanjianzhi}
-        return HttpResponse('success')
+        context = {'stda':paperedit,'tags_1_tagsinput':paperquestion,'editor-two':keyquestion}
+        logging.debug(paperedit)
+       #return HttpResponse('success')
+        return HttpResponse("{\"status\":1}")
+    else:
+        return HttpResponse("{\"status\":0}")
         #return render(request,'result.html',{'result':'ok'})
 
 def chapter(request):
