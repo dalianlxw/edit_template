@@ -55,14 +55,37 @@
           </div>
         </div>
       </div>
-           <div class="col-md-6 col-sm-2 col-xs-2"> 
-           <div class="x_panel">           
-            <div class="x_content"> 
+<!--     右边部分  -->
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Text areas<small>Sessions</small></h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
              <form action="" method="POST" id="submitpaper" data-parsley-validate enctype="multipart/form-data"  class="form-horizontal form-label-left"> 
              {% csrf_token %}
-               <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor-two"> 
-               <textarea id="editor-two" class="editor-wrapper col-md-12"></textarea> 
-              </div>
+            <div id="editor-tw" class="editor-wrapper">
+
+            </div>
+            <textarea name="editor-two" id="editor-two" style="display:none;"></textarea>
+            <div class="ln_solid"></div>
+
                 <label class="control-label col-md-2 col-sm-2 col-xs-2">试题答案</label>
                  <div class="input-group col-md-6 col-sm-4 col-xs-4" >
                   <input type="text" id="stda" class="form-control">
@@ -74,17 +97,26 @@
                   <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
                   </div>
 
+
+
                 <div class="form-group">
                   <div class="col-md-8 col-sm-5 col-xs-5 col-md-offset-5">
+
                     <button type="button" id='bt001'  class="btn btn-primary">Cancel</button> 
                     <button class="btn btn-primary" id="sub_reset" type="reset">Reset</button>
                     <button type="button" id="Subform" class="btn btn-success">Submit</button>
                   </div>
                 </div>
+                 <div class="ln_solid"></div>
               </form>
-             </div> 
-           </div> 
-          </div> 
+
+
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
   </div>
 {% endblock content %}

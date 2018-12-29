@@ -3,23 +3,23 @@ var cities = [
 ["大连","丹东","沈阳"],
 ["浦东","崇明","静安"]
 ];
-
 $("#Subform").on("click",function(){
-$.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});
+
+//$.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});
 $.ajax({
     async:false,
     type:'POST',
     url: '/singe_submit',
     data: {
-    "editor-two":$('#editor-two').val(),
+    "editor":$('#editor-two').val(),
     "stda":$('#stda').val(),
-    "tags_1_tagsinput":$('#tags_1_tagsinput').val(),
+    "tags_1":$('#tags_1').val()
     },
     dataType:'json',
     success:function(data){
     if (data.status == 1){
         alert("试题已经录入，确定后继续");
-        $("#demo-form2")[0].reset();
+//        $("submitpaper")[0].reset();
     }
     else if (data.status == 0){
         alert("传数据时出现异常")

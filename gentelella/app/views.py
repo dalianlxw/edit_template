@@ -139,12 +139,14 @@ def read_file(request,id):
 
 def singe_submit(request):
     if request.method =="POST":
-        paperedit = request.POST.get('stda')
-        paperquestion = request.POST.get('tags_1_tagsinput')
-        keyquestion = request.POST.get('editor-two')
+        paperedit = request.POST.get('editor')
+        paperquestion = request.POST.get('stda')
+        keyquestion = request.POST.get('tags_1')
         context = {}
-        context = {'stda':paperedit,'tags_1_tagsinput':paperquestion,'editor-two':keyquestion}
+        context = {'editor':paperedit,'stda':paperquestion,'tags_1':keyquestion}
+        logging.debug(paperquestion)
         logging.debug(paperedit)
+        logging.debug(keyquestion)
        #return HttpResponse('success')
         return HttpResponse("{\"status\":1}")
     else:
