@@ -7,7 +7,7 @@ import json,uuid,os,hashlib,docx
 #from app.scripts.docxtohtml import processDocs
 from app.scripts.docxread import read_docx
 import docx2txt
-from  app.models import Edition,Grade,Subject,Papertype,Pharse,Chapter,Paper
+from  app.models import Edition,Grade,Subject,Papertype,Pharse,Chapter,Paper,Question
 
 import logging
 
@@ -94,7 +94,7 @@ def form_upload(request):
             return HttpResponse("{\"status\":1}")
         else:
             logging.debug("md5hex:%s,editionid:%s,subjectid:%s,gradeid:%s,chapterid:%s" % (hashex,editionid.id,subjectid.id,gradeid.id,chapterid.id))
-            paper_list = Paper(md5hex=hashex,storage=filepath +"/"+filename,editionid=editionid,subjectid=subjectid,gradeid=gradeid,chapterid=chapterid) 
+            paper_list = Paper(md5hex=hashex,filename=file_obj,storage=filepath +"/"+filename,editionid=editionid,subjectid=subjectid,gradeid=gradeid,chapterid=chapterid) 
             print(filepath +"/"+filename)
             paper_list.save()
             c = Paper.objects.latest('id')
@@ -147,6 +147,12 @@ def singe_submit(request):
         logging.debug(paperquestion)
         logging.debug(paperedit)
         logging.debug(keyquestion)
+
+        question_list = Question(title=paperedit,answer2=paperquestion,knowledges=keyquestion)
+        question_list.save()
+        c = Question.objects.latest('id')
+        logging.debug(c.id)
+
        #return HttpResponse('success')
         return HttpResponse("{\"status\":1}")
     else:

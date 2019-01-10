@@ -87,7 +87,6 @@ class KnowledgeLevel(models.Model):
 
 class Paper(models.Model):
     md5hex = models.CharField(max_length=32, blank=True, null=True)
-    filename = models.CharField(max_length=45, blank=True, null=True)
     storage = models.CharField(max_length=66, blank=True, null=True)
     editionid = models.ForeignKey(Edition, models.DO_NOTHING, db_column='editionid', blank=True, null=True)
     subjectid = models.ForeignKey('Subject', models.DO_NOTHING, db_column='subjectid', blank=True, null=True)
@@ -136,7 +135,7 @@ class QuestionKnowledgeBasicId(models.Model):
         db_table = 'question_knowledge_basic_id'
 
 
-class Question(models.Model):
+class Questions(models.Model):
     title = models.TextField(blank=True, null=True)
     option_a = models.TextField(blank=True, null=True)
     option_b = models.TextField(blank=True, null=True)
@@ -167,7 +166,7 @@ class Question(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'question'
+        db_table = 'questions'
         unique_together = (('fromsite', 'tiid'),)
 
 

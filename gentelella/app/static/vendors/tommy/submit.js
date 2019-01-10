@@ -3,17 +3,22 @@ var cities = [
 ["大连","丹东","沈阳"],
 ["浦东","崇明","静安"]
 ];
-$("#Subform").on("click",function(){
 
+//$('#editor-tw').on('keyup',function(){
+//    console.log('11111');
+//    var text =$('#editor-two').val($(this).text());
+//});
+
+$("#Subform").on("click",function(){
 //$.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token }}'}});
 $.ajax({
     async:false,
     type:'POST',
     url: '/singe_submit',
     data: {
-    "editor":$('#editor-two').val(),
+    "editor":$("#editor-two").html(),
     "stda":$('#stda').val(),
-    "tags_1":$('#tags_1').val()
+    "tags_1":$('#tags_1_tagsinput').text()
     },
     dataType:'json',
     success:function(data){
@@ -83,4 +88,6 @@ $("#grade").change(function(){
      })
     })
  })
+
+
 
