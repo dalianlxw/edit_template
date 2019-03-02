@@ -89,7 +89,7 @@ DATABASES = {
         'USER': 'eduser',
         'PASSWORD': '0D3ced@9BEC10',
     #    'USER': 'root',
-    #    'PASSWORD': 'MyNewPass4!',
+    #    'PASSWORD': 'my-secret-pw',
         'HOST': 'django-mysql',
         'PORT': '3306', 
     }
